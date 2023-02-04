@@ -1,0 +1,21 @@
+version: '3.5'
+
+services:
+  hi_manta_web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hi_manta_web
+    image: hi-manta
+    volumes:
+      - .:/app:rw
+    tty: true
+    ports: 
+      - "8080:8080"
+    networks:
+      - hi-manta-proxy
+
+networks:
+  hi-manta-proxy:
+    external:
+      name: hi-manta-network
