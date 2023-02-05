@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fade" id="prize-modal" ref="modal" data-bs-backdrop="static">
+  <div class="modal fade" id="medal-modal" ref="modal" data-bs-backdrop="static">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -7,29 +7,29 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <div class="prize-form">
+          <div class="medal-form">
             <div class="title column">
               <div class="input">
                 <label class="selector-label" for="title">名稱:</label>
-                <input type="text" id="title" v-model="prize.title">
+                <input type="text" id="title" v-model="medal.title">
               </div>
             </div>
             <div class="description column">
               <div class="input">
                 <label class="selector-label" for="description">敘述:</label>
-                <input type="text" id="description" v-model="prize.description">
+                <input type="text" id="description" v-model="medal.description">
               </div>
             </div>
             <div class="point column">
               <div class="input">
                 <label class="selector-label" for="description">積分:</label>
-                <input type="number" id="description" v-model="prize.point">
+                <input type="number" id="description" v-model="medal.point">
               </div>
             </div>
             <div class="remark column">
               <div class="input">
                 <label class="selector-label" for="remark">備註:</label>
-                <input type="text" id="remark" v-model="prize.remark">
+                <input type="text" id="remark" v-model="medal.remark">
               </div>
             </div>
             <div class="type-selector selector column">
@@ -45,7 +45,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button v-if="isValidate" class="default-button" @click="createPrize">送出</button>
+          <button v-if="isValidate" class="default-button" @click="createMedal">送出</button>
           <button v-else class="default-button" disabled>送出</button>
         </div>
       </div>
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { PrizeType } from '@/assets/constant/constant';
+import { MedalType } from '@/assets/constant/constant';
 import modalMixins from '@/mixins/modalMixins';
 import { initToolTip } from '@/utils/tools';
 
@@ -70,15 +70,15 @@ export default {
         isCancelShow: true,
         confirmFunction: (() => {}),
       },
-      prize: {},
-      initPrize: {
+      medal: {},
+      initMedal: {
         title: null,
         description: null,
         point: 1,
         remark: '',
         type: '請選擇',
       },
-      types: PrizeType,
+      types: MedalType,
       typeIndex: 0,
       validateMap: {
         title: false,
@@ -93,36 +93,36 @@ export default {
     },
   },
   watch: {
-    prize: {
+    medal: {
       handler() {
-        this.validateMap.title = this.prize.title !== null;
-        this.validateMap.description = this.prize.description !== null;
+        this.validateMap.title = this.medal.title !== null;
+        this.validateMap.description = this.medal.description !== null;
       },
       deep: true,
     },
     typeIndex(value) {
       if (value === 0) {
-        this.prize.type = null;
+        this.medal.type = null;
       } else {
-        this.prize.type = value;
+        this.medal.type = value;
         this.validateMap.type = true;
       }
     },
   },
   methods: {
-    resetPrize() {
-      this.prize = { ...this.intiPrize };
-      this.$parent.getPrizes();
+    resetMedal() {
+      this.medal = { ...this.initMedal };
+      this.$parent.getMedals();
     },
-    createPrize() {
-      const url = `${process.env.VUE_APP_API}/prize`;
-      this.$http.post(url, this.prize, this.config)
+    createMedal() {
+      const url = `${process.env.VUE_APP_API}/medal`;
+      this.$http.post(url, this.medal, this.config)
         .then((res) => {
           if (res.status === 200) {
             const refs = this.$parent.$refs;
             this.$parent.alert.title = null;
-            this.$parent.alert.message = '儲存獎品成功';
-            this.$parent.alert.confirmFunction = this.resetPrize;
+            this.$parent.alert.message = '儲存勳章成功';
+            this.$parent.alert.confirmFunction = this.resetMedal;
             this.hideModal();
             refs.alertModal.showModal();
           }
@@ -132,7 +132,7 @@ export default {
           if (response) {
             const refs = this.$parent.$refs;
             this.$parent.alert.title = null;
-            this.$parent.alert.message = '儲存獎品失敗 請重新操作';
+            this.$parent.alert.message = '儲存勳章失敗 請重新操作';
             refs.alertModal.showModal();
           }
         });
@@ -140,14 +140,14 @@ export default {
     confirmCreateTrip() {
       this.hideModal();
       const refs = this.$parent.$refs;
-      this.$parent.alert.title = '新增獎品';
-      this.$parent.alert.message = '確定要新增獎品嗎';
-      this.$parent.alert.confirmFunction = this.createPrize;
+      this.$parent.alert.title = '新增勳章';
+      this.$parent.alert.message = '確定要新增勳章嗎';
+      this.$parent.alert.confirmFunction = this.createMedal;
       refs.confirmModal.showModal();
     },
   },
   created() {
-    this.prize = { ...this.initPrize };
+    this.medal = { ...this.initMedal };
   },
   updated() {
     initToolTip();

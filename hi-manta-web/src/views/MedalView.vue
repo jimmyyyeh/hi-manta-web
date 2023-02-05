@@ -10,6 +10,11 @@
       <div class="spinner-grow"></div>
     </div>
     <div class="container" v-show="!isLoading">
+      <div class="filter-bar">
+        <div class="button-group">
+          <button class="default-button" @click="showMedalModal">新增</button>
+        </div>
+      </div>
       <div class="medal-list">
         <table class="table">
           <thead>
@@ -18,6 +23,7 @@
             <th scope="col">敘述</th>
             <th scope="col">備註說明</th>
             <th scope="col">類別</th>
+            <th scope="col"></th>
           </tr>
           </thead>
           <tbody>
@@ -26,6 +32,12 @@
             <td> {{ medal.description }}</td>
             <td> {{ medal.remark }}</td>
             <td> {{ convertMedalTypeStr(medal.type) }}</td>
+            <td>
+              <button class="image-button" @click="confirmDeleteMedal(medal)">
+                <img
+                  src="https://i.imgur.com/0VX3Q3b.png" alt="delete"/>
+              </button>
+            </td>
           </tr>
           </tbody>
         </table>
@@ -34,6 +46,7 @@
                          v-show="isSignIn"></PaginateComponent>
     </div>
   </div>
+  <MedalModal ref="medalModal" :config="config"></MedalModal>
   <AlertModal ref="alertModal" :title="alert.title" :message="alert.message"
               :isCancelShow="alert.isCancelShow"
               :confirmFunction="alert.confirmFunction"></AlertModal>
@@ -46,13 +59,14 @@
 import { MedalType } from '@/assets/constant/constant';
 import authMixins from '@/mixins/authMixins';
 import pageMixins from '@/mixins/pageMixins';
+import MedalModal from '@/components/MedalModal.vue';
 import PaginateComponent from '@/components/PaginateComponent.vue';
 import { formatUrl, initToolTip } from '@/utils/tools';
 
 export default {
   mixins: [authMixins, pageMixins],
   components: {
-    PaginateComponent,
+    PaginateComponent, MedalModal,
   },
   data() {
     return {
@@ -65,6 +79,7 @@ export default {
       isLoading: false,
       medals: [],
       filter: {},
+      selectedModel: null,
     };
   },
   watch: {
@@ -106,8 +121,43 @@ export default {
           }
         });
     },
+    deleteMedal() {
+      const url = `${process.env.VUE_APP_API}/medal/${this.selectedMedal.id}`;
+      this.$http.delete(url, this.config)
+        .then((res) => {
+          if (res.status === 200) {
+            const refs = this.$refs;
+            this.alert.title = null;
+            this.alert.message = '刪除勳章成功';
+            this.alert.confirmFunction = this.getMedals;
+            refs.alertModal.showModal();
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+          if (response) {
+            const refs = this.$refs;
+            this.alert.title = null;
+            this.alert.message = '刪除勳章失敗 請重新操作';
+            refs.alertModal.showModal();
+          }
+        });
+    },
+    confirmDeleteMedal(medal) {
+      const refs = this.$refs;
+      this.selectedMedal = medal;
+      this.alert.title = '確認刪除';
+      this.alert.message = `確認要刪除 勳章: ${medal.title} 嗎?`;
+      this.alert.isCancelShow = true;
+      this.alert.confirmFunction = this.deleteMedal;
+      refs.confirmModal.showModal();
+    },
     initData() {
       this.getMedals();
+    },
+    showMedalModal() {
+      const refs = this.$refs;
+      refs.medalModal.showModal();
     },
   },
   updated() {
