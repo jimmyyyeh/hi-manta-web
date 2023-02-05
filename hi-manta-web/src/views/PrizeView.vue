@@ -36,7 +36,11 @@
             <td> {{ prize.remark }}</td>
             <td> {{ convertPrizeTypeStr(prize.type) }} </td>
             <td> {{ prize.point }} </td>
-            <td> {{ prize.is_enable ? '是': '否' }}</td>
+            <td>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="prize-switch" :checked="prize.is_enable" aria-checked="true" @change="switchPrizeStatus(prize)">
+              </div>
+            </td>
             <td>
               <button class="image-button" @click="showPrizeModal(prize, true)">
                 <img
@@ -152,6 +156,25 @@ export default {
             this.alert.title = null;
             this.alert.message = '刪除獎品失敗 請重新操作';
             refs.alertModal.showModal();
+          }
+        });
+    },
+    switchPrizeStatus(prize) {
+      const url = `${process.env.VUE_APP_API}/prize/${prize.id}`;
+      console.log(prize.is_enable);
+      const payload = {
+        is_enable: !prize.is_enable,
+      };
+      this.$http.put(url, payload, this.config)
+        .then((res) => {
+          if (res.status === 200) {
+            this.getPrizes();
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+          if (response) {
+            console.log(response);
           }
         });
     },
