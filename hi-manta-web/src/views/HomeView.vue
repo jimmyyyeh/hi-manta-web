@@ -20,10 +20,10 @@
       <div class="footer">
         <div class="icons">
           <button class="image-button" @click="openSocialMedia('facebook')">
-            <img src="https://i.imgur.com/kwZoQty.png" alt="facebook">
+            <img src="https://i.imgur.com/pgpjriB.png" alt="facebook">
           </button>
           <button class="image-button" @click="openSocialMedia('instagram')">
-            <img src="https://i.imgur.com/bMlXrgs.png" alt="instagram">
+            <img src="https://i.imgur.com/HhJMv80.png" alt="instagram">
           </button>
           <!-- <button class="image-button" @click="sendEmail">
             <img src="https://i.imgur.com/lfvN3N6.png" alt="email">

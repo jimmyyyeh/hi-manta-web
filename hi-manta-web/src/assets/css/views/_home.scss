@@ -57,7 +57,9 @@
 
     .footer {
       @include centralize;
+      position: absolute;
       width: 100vw;
+      bottom: 0;
       flex-direction: column;
       background-color: $main-color;
       padding: 5px 0 5px 0;
