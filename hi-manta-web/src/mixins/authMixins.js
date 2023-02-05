@@ -43,8 +43,8 @@ export default {
       const url = `${process.env.VUE_APP_API}/sign-in`;
       const payload = {
         username: this.user.username,
-        password: null,  // TODO 從別的地方拿
-        role: this.user.role
+        password: null, // TODO 從別的地方拿
+        role: this.user.role,
       };
       try {
         const res = await this.$http.post(url, payload);

@@ -1,0 +1,350 @@
+$main-color: #335a7b;
+$sub-color: #335a7b;
+$white-color: #FFFFFF;
+$black-color: #000000;
+$not-validated-color: #FF0000;
+
+$squeeze-size: 1450px;
+$pad-size: 820px;
+$phone-size: 414px;
+
+
+@mixin centralize {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin form {
+  background-color: transparent;
+  border: $main-color 1px solid;
+  border-radius: 5px;
+  box-shadow: 3px 3px 12px $main-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 150px 0 0 0;
+  width: 60vh;
+  height: 60vh;
+  position: relative;
+  @media (max-width: $phone-size) {
+    margin: 50px 0 0 0;
+    width: 50vh;
+  }
+
+  .column {
+    display: flex;
+    justify-content: flex-start;
+    margin: 10px;
+    padding: 0 0 0 10px;
+    width: 100%;
+
+    .input {
+      .input-label {
+        width: 10em;
+      }
+
+      .radio-label {
+        color: $main-color;
+        margin: 0 5px 0 5px;
+      }
+    }
+  }
+
+  .button-group {
+    button {
+      margin: 10px;
+    }
+  }
+}
+
+#app {
+  background: rgba(255, 255, 255, 0.8) url('https://i.imgur.com/8q7qb38.jpge') no-repeat fixed center;
+  background-size: 100%;
+  background-blend-mode: lighten;
+  height: 100vh;
+  @media (max-width: $phone-size) {
+    background-position-y: 40%;
+  }
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  height: 95vh;
+  max-width: 100%;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    position: relative;
+  }
+}
+
+.under-construction {
+  width: 100vw;
+  height: 100vh;
+}
+
+.picker {
+  width: 50vw;
+}
+
+.default-button {
+  background-color: $main-color;
+  color: $white-color;
+  border: none;
+  border-radius: 5px;
+  font-size: small;
+  font-weight: bold;
+  padding: 10px 15px 10px 15px;
+
+  @media (max-width: $phone-size) {
+    font-size: xx-small;
+  }
+
+  &:disabled {
+    background-color: $sub-color;
+  }
+}
+
+.create-button {
+  background-color: $main-color;
+  color: $white-color !important;
+  border: none;
+  width: 2em;
+  height: 2em;
+
+  &:disabled {
+    background-color: $sub-color;
+  }
+}
+
+// offcanvas
+.offcanvas-bar {
+  width: 100%;
+  background-color: $sub-color;
+  padding: 5px;
+  display: none;
+  @media (max-width: $phone-size) {
+    display: block;
+  }
+
+  .offcanvas-button {
+    display: none;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: transparent;
+    @media (max-width: $phone-size) {
+      display: block;
+    }
+  }
+}
+
+
+.offcanvas {
+  display: none;
+  width: 50vw;
+  @media (max-width: $phone-size) {
+    display: block;
+  }
+
+  .offcanvas-header {
+    background-color: $sub-color;
+    height: 40px;
+
+    .offcanvas-button {
+      width: 30px;
+      height: 30px;
+      border: none;
+      background-color: transparent;
+      @media (max-width: $phone-size) {
+        display: block;
+      }
+    }
+  }
+
+  .offcanvas-body {
+    ul {
+      li {
+        color: $main-color;
+        font-weight: bold;
+        margin: 0 0 5px 0;
+      }
+    }
+  }
+}
+
+// tab
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  height: 5vh;
+
+  @media (max-width: $phone-size) {
+    display: none;
+  }
+
+  .logo {
+    @include centralize;
+    margin: 0 0 0 10px;
+
+    input {
+      width: 30px;
+      height: 30px;
+      border: none;
+      background-color: transparent;
+    }
+  }
+
+
+  .nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 3em;
+    margin: 0 10px 0 0;
+
+    .nav-item {
+      color: $main-color;
+      font-weight: bold;
+      padding: 5px 10px 5px 10px;
+      margin: 5px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $sub-color;
+        border-radius: 5px;
+        border: none !important;
+      }
+
+      &.active {
+        border-bottom: 3px solid $main-color;
+      }
+    }
+  }
+
+}
+
+
+//pagination
+.nav-pagination {
+  @include centralize;
+  position: absolute;
+  bottom: 10px;
+  right: 50%;
+  left: 50%;
+
+  @media (max-width: $phone-size) {
+    display: none;
+  }
+
+  .previous-pages {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .next-pages {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .page-item {
+    &.active {
+      .page-link {
+        background-color: $main-color !important;
+        border-color: $main-color !important;
+        color: $white-color !important;
+      }
+    }
+
+    .page-link {
+      color: $main-color !important;
+    }
+  }
+
+  .pagination {
+    a {
+      &:hover {
+        background-color: $main-color !important;
+        border-color: $main-color !important;
+        color: white !important;
+      }
+    }
+  }
+}
+
+.overlay {
+  @include centralize;
+  width: 100%;
+  height: 100%;
+}
+
+.validate-label {
+  color: $not-validated-color;
+  margin: 0 0 0 3px;
+}
+
+.selector-label, .input-label {
+  font-weight: bold;
+  width: 5em;
+}
+
+.selector-label {
+  margin: 0 0 0 3px;
+}
+
+.input-label {
+  margin: 0 3px 0 0;
+}
+
+label, select {
+  @media (max-width: $phone-size) {
+    font-size: small;
+  }
+}
+
+ul, li, h6, label {
+  color: $main-color;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  background-color: $white-color;
+  border: $main-color 1px solid;
+  color: $main-color !important;
+  border-radius: 5px;
+  @media (max-width: $phone-size) {
+    font-size: smaller !important;
+  }
+}
+
+.btn-close {
+  color: $main-color;
+}
+
+.modal-content {
+  @media (max-width: $pad-size) {
+    width: 70vw !important;
+  }
+}
+
+.image-button {
+  background: transparent;
+  border: none;
+
+  img {
+    height: 25px;
+    width: 25px;
+  }
+}
