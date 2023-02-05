@@ -23,7 +23,7 @@
             <div class="point column">
               <div class="input">
                 <label class="selector-label" for="description">積分:</label>
-                <input type="number" id="description" v-model="medal.point">
+                <input type="number" id="description" v-model="medal.point" :readonly="isEdit">
               </div>
             </div>
             <div class="remark column">
@@ -45,7 +45,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button v-if="isValidate" class="default-button" @click="createMedal">送出</button>
+          <button v-if="isValidate && isEdit" class="default-button" @click="updateMedal">送出</button>
+          <button v-else-if="isValidate && !isEdit" class="default-button" @click="createMedal">送出</button>
           <button v-else class="default-button" disabled>送出</button>
         </div>
       </div>
@@ -61,7 +62,7 @@ import { initToolTip } from '@/utils/tools';
 
 export default {
   mixins: [modalMixins],
-  props: ['config'],
+  props: ['config', 'selectedMedal', 'isEdit'],
   data() {
     return {
       alert: {
@@ -93,6 +94,15 @@ export default {
     },
   },
   watch: {
+    selectedMedal: {
+      handler() {
+        if (this.selectedMedal) {
+          this.medal = { ...this.selectedMedal };
+          this.typeIndex = this.medal.type;
+        }
+      },
+      deep: true,
+    },
     medal: {
       handler() {
         this.validateMap.title = this.medal.title !== null;
@@ -121,7 +131,7 @@ export default {
           if (res.status === 200) {
             const refs = this.$parent.$refs;
             this.$parent.alert.title = null;
-            this.$parent.alert.message = '儲存勳章成功';
+            this.$parent.alert.message = '新增勳章成功';
             this.$parent.alert.confirmFunction = this.resetMedal;
             this.hideModal();
             refs.alertModal.showModal();
@@ -132,7 +142,36 @@ export default {
           if (response) {
             const refs = this.$parent.$refs;
             this.$parent.alert.title = null;
-            this.$parent.alert.message = '儲存勳章失敗 請重新操作';
+            this.$parent.alert.message = '新增勳章失敗 請重新操作';
+            refs.alertModal.showModal();
+          }
+        });
+    },
+    updateMedal() {
+      const url = `${process.env.VUE_APP_API}/medal/${this.medal.id}`;
+      const payload = {
+        title: this.medal.title,
+        description: this.medal.description,
+        remark: this.medal.remark,
+        type: this.medal.type,
+      };
+      this.$http.put(url, payload, this.config)
+        .then((res) => {
+          if (res.status === 200) {
+            const refs = this.$parent.$refs;
+            this.$parent.alert.title = null;
+            this.$parent.alert.message = '更新勳章成功';
+            this.$parent.alert.confirmFunction = this.resetMedal;
+            this.hideModal();
+            refs.alertModal.showModal();
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+          if (response) {
+            const refs = this.$parent.$refs;
+            this.$parent.alert.title = null;
+            this.$parent.alert.message = '更新勳章失敗 請重新操作';
             refs.alertModal.showModal();
           }
         });

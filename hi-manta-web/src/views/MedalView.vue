@@ -12,7 +12,7 @@
     <div class="container" v-show="!isLoading">
       <div class="filter-bar">
         <div class="button-group">
-          <button class="default-button" @click="showMedalModal">新增</button>
+          <button class="default-button" @click="showMedalModal(null, false)">新增</button>
         </div>
       </div>
       <div class="medal-list">
@@ -24,6 +24,7 @@
             <th scope="col">備註說明</th>
             <th scope="col">類別</th>
             <th scope="col"></th>
+            <th scope="col"></th>
           </tr>
           </thead>
           <tbody>
@@ -32,6 +33,12 @@
             <td> {{ medal.description }}</td>
             <td> {{ medal.remark }}</td>
             <td> {{ convertMedalTypeStr(medal.type) }}</td>
+            <td>
+              <button class="image-button" @click="showMedalModal(medal, true)">
+                <img
+                  src="https://i.imgur.com/G1Tz1pA.png" alt="edit"/>
+              </button>
+            </td>
             <td>
               <button class="image-button" @click="confirmDeleteMedal(medal)">
                 <img
@@ -46,7 +53,7 @@
                          v-show="isSignIn"></PaginateComponent>
     </div>
   </div>
-  <MedalModal ref="medalModal" :config="config"></MedalModal>
+  <MedalModal ref="medalModal" :selectedMedal="selectedMedal" :isEdit="isEdit" :config="config"></MedalModal>
   <AlertModal ref="alertModal" :title="alert.title" :message="alert.message"
               :isCancelShow="alert.isCancelShow"
               :confirmFunction="alert.confirmFunction"></AlertModal>
@@ -79,7 +86,8 @@ export default {
       isLoading: false,
       medals: [],
       filter: {},
-      selectedModel: null,
+      selectedMedal: null,
+      isEdit: false,
     };
   },
   watch: {
@@ -155,7 +163,9 @@ export default {
     initData() {
       this.getMedals();
     },
-    showMedalModal() {
+    showMedalModal(selectedMedal, isEdit) {
+      this.selectedMedal = selectedMedal;
+      this.isEdit = isEdit;
       const refs = this.$refs;
       refs.medalModal.showModal();
     },
