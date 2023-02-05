@@ -30,7 +30,6 @@ export default {
           Authorization: `Bearer ${this.user.access_token}`,
         },
       };
-      console.log(this.user.access_token);
     },
     setAuth() {
       this.setCookie();

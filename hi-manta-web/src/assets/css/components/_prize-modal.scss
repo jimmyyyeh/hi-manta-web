@@ -1,0 +1,17 @@
+@import "./src/assets/css/basic/basic";
+
+.prize-form {
+  @media (max-width: $phone-size) {
+    display: none;
+  }
+  select {
+    color: $main-color;
+    border-radius: 5px;
+    margin: 0 5px 0 0;
+  }
+
+  .column {
+    display: flex;
+    margin: 10px;
+  }
+}

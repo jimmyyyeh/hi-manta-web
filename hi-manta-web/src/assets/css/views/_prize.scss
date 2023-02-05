@@ -24,7 +24,7 @@
         align-items: center;
         justify-content: space-around;
 
-        .charger-selector, .model-selector, .spec-selector {
+        .type-selector {
           @media (max-width: $pad-size) {
             display: none !important;
           }
@@ -127,18 +127,6 @@
           display: flex;
           margin: 5px;
           position: relative;
-
-          .rate {
-            @include centralize;
-            position: absolute;
-            right: 0;
-            bottom: 0;
-
-            label {
-              font-size: medium;
-              margin: 5px 0 0 0;
-            }
-          }
         }
 
       }

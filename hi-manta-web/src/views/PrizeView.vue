@@ -10,6 +10,11 @@
       <div class="spinner-grow"></div>
     </div>
     <div class="container" v-show="!isLoading">
+      <div class="filter-bar">
+        <div class="button-group">
+          <button class="default-button" @click="showPrizeModal">新增</button>
+        </div>
+      </div>
       <div class="prize-list">
         <table class="table">
           <thead>
@@ -18,7 +23,9 @@
             <th scope="col">敘述</th>
             <th scope="col">備註說明</th>
             <th scope="col">類別</th>
+            <th scope="col">積分</th>
             <th scope="col">是否開放</th>
+            <th scope="col"></th>
           </tr>
           </thead>
           <tbody>
@@ -27,7 +34,14 @@
             <td> {{ prize.description }}</td>
             <td> {{ prize.remark }}</td>
             <td> {{ convertPrizeTypeStr(prize.type) }} </td>
+            <td> {{ prize.point }} </td>
             <td> {{ prize.is_enable ? '是': '否' }}</td>
+            <td>
+              <button class="image-button" @click="confirmDeletePrize(prize)">
+                <img
+                  src="https://i.imgur.com/0VX3Q3b.png" alt="delete"/>
+              </button>
+            </td>
           </tr>
           </tbody>
         </table>
@@ -36,6 +50,7 @@
                          v-show="isSignIn"></PaginateComponent>
     </div>
   </div>
+  <PrizeModal ref="prizeModal" :config="config"></PrizeModal>
   <AlertModal ref="alertModal" :title="alert.title" :message="alert.message"
               :isCancelShow="alert.isCancelShow"
               :confirmFunction="alert.confirmFunction"></AlertModal>
@@ -48,13 +63,14 @@
 import { PrizeType } from '@/assets/constant/constant';
 import authMixins from '@/mixins/authMixins';
 import pageMixins from '@/mixins/pageMixins';
+import PrizeModal from '@/components/PrizeModal.vue';
 import PaginateComponent from '@/components/PaginateComponent.vue';
 import { formatUrl, initToolTip } from '@/utils/tools';
 
 export default {
   mixins: [authMixins, pageMixins],
   components: {
-    PaginateComponent,
+    PaginateComponent, PrizeModal,
   },
   data() {
     return {
@@ -67,6 +83,7 @@ export default {
       isLoading: false,
       prizes: [],
       filter: {},
+      selectedPrize: null,
     };
   },
   watch: {
@@ -108,8 +125,43 @@ export default {
           }
         });
     },
+    deletePrize() {
+      const url = `${process.env.VUE_APP_API}/prize/${this.selectedPrize.id}`;
+      this.$http.delete(url, this.config)
+        .then((res) => {
+          if (res.status === 200) {
+            const refs = this.$refs;
+            this.alert.title = null;
+            this.alert.message = '刪除獎品成功';
+            this.alert.confirmFunction = this.getPrizes;
+            refs.alertModal.showModal();
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+          if (response) {
+            const refs = this.$refs;
+            this.alert.title = null;
+            this.alert.message = '刪除獎品失敗 請重新操作';
+            refs.alertModal.showModal();
+          }
+        });
+    },
+    confirmDeletePrize(prize) {
+      const refs = this.$refs;
+      this.selectedPrize = prize;
+      this.alert.title = '確認刪除';
+      this.alert.message = `確認要刪除 獎品: ${prize.title} 嗎?`;
+      this.alert.isCancelShow = true;
+      this.alert.confirmFunction = this.deletePrize;
+      refs.confirmModal.showModal();
+    },
     initData() {
       this.getPrizes();
+    },
+    showPrizeModal() {
+      const refs = this.$refs;
+      refs.prizeModal.showModal();
     },
   },
   updated() {

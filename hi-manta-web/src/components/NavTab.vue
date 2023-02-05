@@ -26,7 +26,6 @@ export default {
   methods: {
     redirectPage(name) {
       const path = this.pathMap[name];
-      console.log(path, name);
       this.$router.push(path);
     },
   },
