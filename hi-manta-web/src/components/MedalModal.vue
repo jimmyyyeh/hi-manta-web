@@ -22,7 +22,7 @@
             </div>
             <div class="point column">
               <div class="input">
-                <label class="selector-label" for="description">積分:</label>
+                <label class="selector-label" for="description">可得積分:</label>
                 <input type="number" id="description" v-model="medal.point" :readonly="isEdit">
               </div>
             </div>

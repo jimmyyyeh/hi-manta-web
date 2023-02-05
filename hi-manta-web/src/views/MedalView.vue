@@ -23,6 +23,7 @@
             <th scope="col">敘述</th>
             <th scope="col">備註說明</th>
             <th scope="col">類別</th>
+            <th scope="col">可得積分</th>
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
@@ -33,6 +34,7 @@
             <td> {{ medal.description }}</td>
             <td> {{ medal.remark }}</td>
             <td> {{ convertMedalTypeStr(medal.type) }}</td>
+            <td> {{ medal.point }} </td>
             <td>
               <button class="image-button" @click="showMedalModal(medal, true)">
                 <img

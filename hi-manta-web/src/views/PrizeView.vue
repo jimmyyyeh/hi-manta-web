@@ -12,7 +12,7 @@
     <div class="container" v-show="!isLoading">
       <div class="filter-bar">
         <div class="button-group">
-          <button class="default-button" @click="showPrizeModal">新增</button>
+          <button class="default-button" @click="showPrizeModal(null, False)">新增</button>
         </div>
       </div>
       <div class="prize-list">
@@ -23,8 +23,9 @@
             <th scope="col">敘述</th>
             <th scope="col">備註說明</th>
             <th scope="col">類別</th>
-            <th scope="col">積分</th>
+            <th scope="col">所需積分</th>
             <th scope="col">是否開放</th>
+            <th scope="col"></th>
             <th scope="col"></th>
           </tr>
           </thead>
@@ -36,6 +37,12 @@
             <td> {{ convertPrizeTypeStr(prize.type) }} </td>
             <td> {{ prize.point }} </td>
             <td> {{ prize.is_enable ? '是': '否' }}</td>
+            <td>
+              <button class="image-button" @click="showPrizeModal(prize, true)">
+                <img
+                  src="https://i.imgur.com/G1Tz1pA.png" alt="edit"/>
+              </button>
+            </td>
             <td>
               <button class="image-button" @click="confirmDeletePrize(prize)">
                 <img
@@ -50,7 +57,7 @@
                          v-show="isSignIn"></PaginateComponent>
     </div>
   </div>
-  <PrizeModal ref="prizeModal" :config="config"></PrizeModal>
+  <PrizeModal ref="prizeModal" :selectedPrize="selectedPrize" :isEdit="isEdit" :config="config"></PrizeModal>
   <AlertModal ref="alertModal" :title="alert.title" :message="alert.message"
               :isCancelShow="alert.isCancelShow"
               :confirmFunction="alert.confirmFunction"></AlertModal>
@@ -84,6 +91,7 @@ export default {
       prizes: [],
       filter: {},
       selectedPrize: null,
+      isEdit: false,
     };
   },
   watch: {
@@ -159,7 +167,9 @@ export default {
     initData() {
       this.getPrizes();
     },
-    showPrizeModal() {
+    showPrizeModal(selectedPrize, isEdit) {
+      this.selectedPrize = selectedPrize;
+      this.isEdit = isEdit;
       const refs = this.$refs;
       refs.prizeModal.showModal();
     },

@@ -22,8 +22,8 @@
             </div>
             <div class="point column">
               <div class="input">
-                <label class="selector-label" for="description">積分:</label>
-                <input type="number" id="description" v-model="prize.point">
+                <label class="selector-label" for="description">所需積分:</label>
+                <input type="number" id="description" v-model="prize.point" :readonly="isEdit">
               </div>
             </div>
             <div class="remark column">
@@ -45,7 +45,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button v-if="isValidate" class="default-button" @click="createPrize">送出</button>
+          <button v-if="isValidate && isEdit" class="default-button" @click="updatePrize">送出</button>
+          <button v-else-if="isValidate && !isEdit" class="default-button" @click="createPrize">送出</button>
           <button v-else class="default-button" disabled>送出</button>
         </div>
       </div>
@@ -61,7 +62,7 @@ import { initToolTip } from '@/utils/tools';
 
 export default {
   mixins: [modalMixins],
-  props: ['config'],
+  props: ['config', 'selectedPrize', 'isEdit'],
   data() {
     return {
       alert: {
@@ -93,6 +94,15 @@ export default {
     },
   },
   watch: {
+    selectedPrize: {
+      handler() {
+        if (this.selectedPrize) {
+          this.prize = { ...this.selectedPrize };
+          this.typeIndex = this.prize.type;
+        }
+      },
+      deep: true,
+    },
     prize: {
       handler() {
         this.validateMap.title = this.prize.title !== null;
@@ -133,6 +143,35 @@ export default {
             const refs = this.$parent.$refs;
             this.$parent.alert.title = null;
             this.$parent.alert.message = '儲存獎品失敗 請重新操作';
+            refs.alertModal.showModal();
+          }
+        });
+    },
+    updatePrize() {
+      const url = `${process.env.VUE_APP_API}/prize/${this.prize.id}`;
+      const payload = {
+        title: this.prize.title,
+        description: this.prize.description,
+        remark: this.prize.remark,
+        type: this.prize.type,
+      };
+      this.$http.put(url, payload, this.config)
+        .then((res) => {
+          if (res.status === 200) {
+            const refs = this.$parent.$refs;
+            this.$parent.alert.title = null;
+            this.$parent.alert.message = '更新獎品成功';
+            this.$parent.alert.confirmFunction = this.resetPrize;
+            this.hideModal();
+            refs.alertModal.showModal();
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+          if (response) {
+            const refs = this.$parent.$refs;
+            this.$parent.alert.title = null;
+            this.$parent.alert.message = '更新獎品失敗 請重新操作';
             refs.alertModal.showModal();
           }
         });
