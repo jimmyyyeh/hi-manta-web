@@ -5,7 +5,7 @@ export default {
     return {
       user: null,
       config: null,
-      signInRequiredPage: [],
+      signInRequiredPage: ['medal', 'prize'],
     };
   },
   computed: {
@@ -27,9 +27,10 @@ export default {
     setConfig() {
       this.config = {
         headers: {
-          Authorization: this.user.access_token,
+          Authorization: `Bearer ${this.user.access_token}`,
         },
       };
+      console.log(this.user.access_token);
     },
     setAuth() {
       this.setCookie();
@@ -40,10 +41,10 @@ export default {
       this.$router.push('/');
     },
     async requestSignIn() {
-      const url = `${process.env.VUE_APP_API}/sign-in`;
+      const url = `${process.env.VUE_APP_API}/user/sign-in`;
       const payload = {
         username: this.user.username,
-        password: null, // TODO 從別的地方拿
+        password: this.user.password,
         role: this.user.role,
       };
       try {
@@ -69,7 +70,14 @@ export default {
       }
     },
     async initAuth() {
-      const signInCookie = Cookies.get('hi-manta-sign-in');
+      // const signInCookie = Cookies.get('hi-manta-sign-in');
+      // TODO 先寫死
+      const signInCookie = JSON.stringify({
+        username: 'himanta',
+        password: '1234567890',
+        role: 2,
+      });
+
       if (signInCookie) {
         this.user = JSON.parse(signInCookie);
         await this.refresh();

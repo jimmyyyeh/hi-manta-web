@@ -58,15 +58,15 @@ $phone-size: 414px;
   }
 }
 
-#app {
-  background: rgba(255, 255, 255, 0.8) url('https://i.imgur.com/8q7qb38.jpge') no-repeat fixed center;
-  background-size: 100%;
-  background-blend-mode: lighten;
-  height: 100vh;
-  @media (max-width: $phone-size) {
-    background-position-y: 40%;
-  }
-}
+// #app {
+//   background: rgba(255, 255, 255, 0.8) url('https://i.imgur.com/8q7qb38.jpge') no-repeat fixed center;
+//   background-size: 100%;
+//   background-blend-mode: lighten;
+//   height: 100vh;
+//   @media (max-width: $phone-size) {
+//     background-position-y: 40%;
+//   }
+// }
 
 .wrap {
   display: flex;

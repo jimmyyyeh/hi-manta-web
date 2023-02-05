@@ -1,0 +1,148 @@
+@import "./src/assets/css/basic/basic";
+
+.wrap {
+  .container {
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      width: 70vw;
+      padding: 0 10px 0 10px;
+      height: 10%;
+
+      @media (max-width: $squeeze-size) {
+        flex-direction: column-reverse;
+        @media (max-width: $squeeze-size) {
+          label, select {
+            font-size: small !important;
+          }
+        }
+      }
+
+      .selector-group {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        .charger-selector, .model-selector, .spec-selector {
+          @media (max-width: $pad-size) {
+            display: none !important;
+          }
+        }
+
+        .my-prize-selector {
+          .radio-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+            .radio-label {
+              font-size: 0.95em;
+              color: $main-color;
+              font-weight: bold;
+              margin: 0 5px 0 0;
+            }
+          }
+        }
+
+        .selector {
+          margin: 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+
+          .selector-label {
+            width: 5em;
+          }
+
+          select {
+            background-color: $white-color;
+            color: $main-color;
+            border-radius: 5px;
+          }
+        }
+      }
+
+      .button-group {
+        display: flex;
+        width: 100%;
+
+        @media (max-width: $squeeze-size) {
+          @include centralize;
+        }
+
+        @media (max-width: $pad-size) {
+          display: none !important;
+        }
+
+        .default-button {
+          margin: 0 10px 0 0;
+        }
+      }
+    }
+
+    .prize-list {
+      width: 70vw;
+      border: $main-color 1px solid;
+      border-radius: 10px;
+      box-shadow: 3px 3px 12px $main-color;
+      margin: 30px 0 0 0 ;
+
+      @media (max-width: $pad-size) {
+        display: none;
+      }
+
+      .table {
+        @media (max-width: $squeeze-size) {
+          font-size: smaller;
+        }
+        text-align: center;
+        color: $main-color;
+
+        .rate, .charge-info {
+          @include centralize;
+        }
+      }
+    }
+
+    .prize-list-mobile {
+      width: 100%;
+      margin: 10px 0 0 0;
+      display: none;
+      overflow-y: auto;
+      @media (max-width: $pad-size) {
+        display: block;
+      }
+
+      .prize {
+        border: $main-color 1px solid;
+        border-radius: 5px;
+        margin: 0 0 3px 0;
+
+        .header {
+          margin: 5px;
+        }
+
+        .prize-content {
+          display: flex;
+          margin: 5px;
+          position: relative;
+
+          .rate {
+            @include centralize;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+
+            label {
+              font-size: medium;
+              margin: 5px 0 0 0;
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
+
