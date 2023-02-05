@@ -25,7 +25,7 @@
             <td> {{ medal.title }}</td>
             <td> {{ medal.description }}</td>
             <td> {{ medal.remark }}</td>
-            <td> {{ medal.type }}</td>
+            <td> {{ convertMedalTypeStr(medal.type) }}</td>
           </tr>
           </tbody>
         </table>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { MedalType } from '@/assets/constant/constant';
 import authMixins from '@/mixins/authMixins';
 import pageMixins from '@/mixins/pageMixins';
 import PaginateComponent from '@/components/PaginateComponent.vue';
@@ -75,6 +76,9 @@ export default {
     },
   },
   methods: {
+    convertMedalTypeStr(type) {
+      return MedalType[type];
+    },
     returnHome() {
       this.$router.push('/');
     },

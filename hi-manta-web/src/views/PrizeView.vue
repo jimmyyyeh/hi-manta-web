@@ -26,7 +26,7 @@
             <td> {{ prize.title }}</td>
             <td> {{ prize.description }}</td>
             <td> {{ prize.remark }}</td>
-            <td> {{ prize.type }}</td>
+            <td> {{ convertPrizeTypeStr(prize.type) }} </td>
             <td> {{ prize.is_enable ? '是': '否' }}</td>
           </tr>
           </tbody>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import { PrizeType } from '@/assets/constant/constant';
 import authMixins from '@/mixins/authMixins';
 import pageMixins from '@/mixins/pageMixins';
 import PaginateComponent from '@/components/PaginateComponent.vue';
@@ -77,6 +78,9 @@ export default {
     },
   },
   methods: {
+    convertPrizeTypeStr(type) {
+      return PrizeType[type];
+    },
     returnHome() {
       this.$router.push('/');
     },
