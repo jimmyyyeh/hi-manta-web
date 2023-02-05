@@ -30,7 +30,7 @@
           </button> -->
         </div>
         <div class="copyright">
-          <label>Copyright © 2023 Jimmyyyeh. All rights reserved.</label>
+          <label>Copyright © 2023 Hi Manta. All rights reserved.</label>
         </div>
       </div>
     </div>
