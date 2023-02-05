@@ -75,7 +75,7 @@ export default {
       initPrize: {
         title: null,
         description: null,
-        point: 1,
+        point: '',
         remark: '',
         type: '請選擇',
       },

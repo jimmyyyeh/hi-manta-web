@@ -191,7 +191,12 @@ export default {
       this.getPrizes();
     },
     showPrizeModal(selectedPrize, isEdit) {
-      this.selectedPrize = selectedPrize;
+      this.isEdit = isEdit;
+      if (isEdit) {
+        this.selectedPrize = selectedPrize;
+      } else {
+        this.selectedPrize = {};
+      }
       this.isEdit = isEdit;
       const refs = this.$refs;
       refs.prizeModal.showModal();

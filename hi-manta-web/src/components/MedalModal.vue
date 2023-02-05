@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h6>新增獎品</h6>
+          <h6>新增勳章</h6>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
@@ -75,7 +75,7 @@ export default {
       initMedal: {
         title: null,
         description: null,
-        point: 1,
+        point: '',
         remark: '',
         type: '請選擇',
       },

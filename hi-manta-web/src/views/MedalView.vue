@@ -166,8 +166,13 @@ export default {
       this.getMedals();
     },
     showMedalModal(selectedMedal, isEdit) {
-      this.selectedMedal = selectedMedal;
       this.isEdit = isEdit;
+      if (isEdit) {
+        this.selectedMedal = selectedMedal;
+      } else {
+        this.selectedMedal = {};
+      }
+
       const refs = this.$refs;
       refs.medalModal.showModal();
     },
