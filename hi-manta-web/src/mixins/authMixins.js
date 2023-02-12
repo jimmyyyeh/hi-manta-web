@@ -5,7 +5,7 @@ export default {
     return {
       user: null,
       config: null,
-      signInRequiredPage: ['medal', 'prize'],
+      signInRequiredPage: ['medal', 'prize', 'medal-log'],
     };
   },
   computed: {
@@ -71,10 +71,19 @@ export default {
     async initAuth() {
       // const signInCookie = Cookies.get('hi-manta-sign-in');
       // TODO 先寫死
+
+      // // 切換身份為教練
+      // const signInCookie = JSON.stringify({
+      //   username: 'himanta',
+      //   password: '1234567890',
+      //   role: 2,
+      // });
+
+      // 切換身份為學生
       const signInCookie = JSON.stringify({
-        username: 'himanta',
+        username: 'jimmyyeh',
         password: '1234567890',
-        role: 2,
+        role: 1,
       });
 
       if (signInCookie) {

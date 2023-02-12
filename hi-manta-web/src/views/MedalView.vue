@@ -258,7 +258,7 @@ export default {
               if (response) {
                 const refs = this.$refs;
                 this.alert.title = '上傳成功';
-                this.alert.message = `${this.mediaMedal.typeStr} 上傳失敗, 請檢察檔案`;
+                this.alert.message = `${this.mediaMedal.typeStr} 上傳失敗, 請檢查檔案`;
                 this.alert.isCancelShow = false;
                 refs.alertModal.showModal();
               }

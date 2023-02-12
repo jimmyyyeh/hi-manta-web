@@ -4,6 +4,12 @@ const RoleType = {
   admin: 3,
 };
 
+const RoleMap = {
+  1: 'student',
+  2: 'couch',
+  3: 'admin',
+};
+
 const MediaType = {
   image: 1,
   video: 2,
@@ -26,4 +32,4 @@ const PrizeType = {
   2: '裝備',
 };
 
-export { RoleType, MediaType, MediaMap, MedalType, PrizeType };
+export { RoleType, MediaType, RoleMap, MediaMap, MedalType, PrizeType };

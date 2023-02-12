@@ -16,6 +16,11 @@ const routes = [
     name: 'prize',
     component: () => import('../views/PrizeView.vue'),
   },
+  {
+    path: '/medal-log',
+    name: 'medal-log',
+    component: () => import('../views/MedalLogView.vue'),
+  },
 ];
 
 const router = createRouter({

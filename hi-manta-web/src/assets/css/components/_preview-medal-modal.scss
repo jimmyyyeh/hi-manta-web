@@ -1,0 +1,34 @@
+@import "./src/assets/css/basic/basic";
+
+#preview-modal {
+  .modal-dialog{
+    @include centralize;
+    width: 100vw;
+    height: 50vh;
+    .modal-content {
+      @include centralize;
+      height: 100%;
+      border: $main-color 1px solid;
+      border-radius: 5px;
+      box-shadow: 3px 3px 12px $main-color;
+      .modal-header, .modal-body, .modal-footer {
+        border: none;
+        @include centralize;
+        .button-group {
+          .default-button{
+            margin: 0 10px 0 10px;
+          }
+        }
+      }
+      .preview-image {
+        @include centralize;
+        width: 100%;
+        margin: 5px 0 0 0;
+    
+        img, video {
+          height: 30vh;
+        }
+      }    
+    }
+  }
+}
