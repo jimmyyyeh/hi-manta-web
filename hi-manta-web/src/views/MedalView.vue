@@ -25,7 +25,7 @@
             <th scope="col">類別</th>
             <th scope="col">可得積分</th>
             <th scope="col"></th>
-            <th scope="col"></th>
+            <th scope="col" v-show="!this.isStudent"></th>
           </tr>
           </thead>
           <tbody>
@@ -35,13 +35,19 @@
             <td> {{ medal.remark }}</td>
             <td> {{ convertMedalTypeStr(medal.type) }}</td>
             <td> {{ medal.point }} </td>
-            <td>
+            <td v-if="!this.isStudent">
               <button class="image-button" @click="showMedalModal(medal, true)">
                 <img
                   src="https://i.imgur.com/G1Tz1pA.png" alt="edit"/>
               </button>
             </td>
-            <td>
+            <td v-else>
+              <button class="image-button" @click="showRecordModal()">
+                <img
+                  src="https://i.imgur.com/NUuvWyW.png" alt="edit"/>
+              </button>
+            </td>
+            <td v-show="!this.isStudent">
               <button class="image-button" @click="confirmDeleteMedal(medal)">
                 <img
                   src="https://i.imgur.com/0VX3Q3b.png" alt="delete"/>
@@ -65,7 +71,7 @@
 </template>
 
 <script>
-import { MedalType } from '@/assets/constant/constant';
+import { MedalType, RoleType } from '@/assets/constant/constant';
 import authMixins from '@/mixins/authMixins';
 import pageMixins from '@/mixins/pageMixins';
 import MedalModal from '@/components/MedalModal.vue';
@@ -79,6 +85,7 @@ export default {
   },
   data() {
     return {
+      isStudent: true,
       pager: {
         page: 1,
         per_page: 10,
@@ -176,11 +183,14 @@ export default {
       const refs = this.$refs;
       refs.medalModal.showModal();
     },
+    showRecordModal() {
+    },
   },
   updated() {
     initToolTip();
   },
   mounted() {
+    this.isStudent = this.user.role === RoleType.student;
   },
 };
 </script>

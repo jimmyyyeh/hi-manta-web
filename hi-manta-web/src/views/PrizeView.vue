@@ -24,9 +24,9 @@
             <th scope="col">備註說明</th>
             <th scope="col">類別</th>
             <th scope="col">所需積分</th>
-            <th scope="col">是否開放</th>
+            <th scope="col" v-show="!this.isStudent">是否開放</th>
             <th scope="col"></th>
-            <th scope="col"></th>
+            <th scope="col" v-show="!this.isStudent"></th>
           </tr>
           </thead>
           <tbody>
@@ -36,18 +36,18 @@
             <td> {{ prize.remark }}</td>
             <td> {{ convertPrizeTypeStr(prize.type) }} </td>
             <td> {{ prize.point }} </td>
-            <td>
+            <td v-show="!this.isStudent">
               <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="prize-switch" :checked="prize.is_enable" aria-checked="true" @change="switchPrizeStatus(prize)">
               </div>
             </td>
-            <td>
+            <td v-show="!this.isStudent">
               <button class="image-button" @click="showPrizeModal(prize, true)">
                 <img
                   src="https://i.imgur.com/G1Tz1pA.png" alt="edit"/>
               </button>
             </td>
-            <td>
+            <td v-show="!this.isStudent">
               <button class="image-button" @click="confirmDeletePrize(prize)">
                 <img
                   src="https://i.imgur.com/0VX3Q3b.png" alt="delete"/>
@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { PrizeType } from '@/assets/constant/constant';
+import { PrizeType, RoleType } from '@/assets/constant/constant';
 import authMixins from '@/mixins/authMixins';
 import pageMixins from '@/mixins/pageMixins';
 import PrizeModal from '@/components/PrizeModal.vue';
@@ -85,6 +85,7 @@ export default {
   },
   data() {
     return {
+      isStudent: true,
       pager: {
         page: 1,
         per_page: 10,
@@ -206,6 +207,7 @@ export default {
     initToolTip();
   },
   mounted() {
+    this.isStudent = this.user.role === RoleType.student;
   },
 };
 </script>

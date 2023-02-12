@@ -1,7 +1,7 @@
 const RoleType = {
-  1: '學員',
-  2: '教練',
-  3: '管理員',
+  student: 1,
+  couch: 2,
+  admin: 3,
 };
 
 const MedalType = {
