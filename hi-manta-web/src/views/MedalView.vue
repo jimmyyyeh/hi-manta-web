@@ -24,8 +24,10 @@
             <th scope="col">備註說明</th>
             <th scope="col">類別</th>
             <th scope="col">可得積分</th>
-            <th scope="col"></th>
             <th scope="col" v-show="!this.isStudent"></th>
+            <th scope="col" v-show="!this.isStudent"></th>
+            <th scope="col" v-show="this.isStudent">圖片</th>
+            <th scope="col" v-show="this.isStudent">影片</th>
           </tr>
           </thead>
           <tbody>
@@ -42,16 +44,46 @@
               </button>
             </td>
             <td v-else>
-              <button class="image-button" @click="showRecordModal()">
-                <img
-                  src="https://i.imgur.com/NUuvWyW.png" alt="edit"/>
-              </button>
+              <div class="upload-image">
+                  <input
+                    class="upload"
+                    id="upload-image-input"
+                    name="upload"
+                    type="file"
+                    accept="image/*"
+                    @change="uploadMedia"
+                  />
+                  <button
+                    class="image-button"
+                    @click="clickUpload(medal, 'image')"
+                  >
+                    <img src="https://i.imgur.com/NUuvWyW.png" alt="image" />
+                  </button>
+                </div>
             </td>
-            <td v-show="!this.isStudent">
+            <td v-if="!this.isStudent">
               <button class="image-button" @click="confirmDeleteMedal(medal)">
                 <img
                   src="https://i.imgur.com/0VX3Q3b.png" alt="delete"/>
               </button>
+            </td>
+            <td v-else>
+              <div class="upload-video">
+                  <input
+                    class="upload"
+                    id="upload-video-input"
+                    name="upload"
+                    type="file"
+                    accept="video/*"
+                    @change="uploadMedia"
+                  />
+                  <button
+                    class="image-button"
+                    @click="clickUpload(medal, 'video')"
+                  >
+                    <img src="https://i.imgur.com/NUuvWyW.png" alt="video" />
+                  </button>
+                </div>
             </td>
           </tr>
           </tbody>
@@ -71,7 +103,7 @@
 </template>
 
 <script>
-import { MedalType, RoleType } from '@/assets/constant/constant';
+import { MedalType, MediaMap, MediaType, RoleType } from '@/assets/constant/constant';
 import authMixins from '@/mixins/authMixins';
 import pageMixins from '@/mixins/pageMixins';
 import MedalModal from '@/components/MedalModal.vue';
@@ -97,6 +129,12 @@ export default {
       filter: {},
       selectedMedal: null,
       isEdit: false,
+      mediaMedal: {
+        id: null,
+        file: null,
+        type: null,
+        typeStr: null,
+      },
     };
   },
   watch: {
@@ -183,7 +221,51 @@ export default {
       const refs = this.$refs;
       refs.medalModal.showModal();
     },
-    showRecordModal() {
+    clickUpload(medal, mediaTypeStr) {
+      this.mediaMedal.id = medal.id;
+      this.mediaMedal.typeStr = mediaTypeStr;
+      this.mediaMedal.type = MediaType[mediaTypeStr];
+      document.getElementById(`upload-${mediaTypeStr}-input`).click();
+    },
+    uploadMedia(event) {
+      const input = event.target;
+      if (input.files) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.mediaMedal.file = e.target.result; // base64
+          const url = `${process.env.VUE_APP_API}/medal/${this.mediaMedal.typeStr}/${this.mediaMedal.id}`;
+          const payload = {
+            file: this.mediaMedal.file,
+          };
+          this.$http.post(url, payload, this.config)
+            .then((res) => {
+              if (res.status === 200) {
+                const refs = this.$refs;
+                this.alert.title = '上傳成功';
+                this.alert.message = `${MediaMap[this.mediaMedal.type]} 上傳成功`;
+                this.alert.isCancelShow = false;
+                this.mediaMedal = {
+                  id: null,
+                  file: null,
+                  type: null,
+                  typeStr: null,
+                };
+                refs.alertModal.showModal();
+              }
+            })
+            .catch((error) => {
+              const response = error.response;
+              if (response) {
+                const refs = this.$refs;
+                this.alert.title = '上傳成功';
+                this.alert.message = `${this.mediaMedal.typeStr} 上傳失敗, 請檢察檔案`;
+                this.alert.isCancelShow = false;
+                refs.alertModal.showModal();
+              }
+            });
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
     },
   },
   updated() {

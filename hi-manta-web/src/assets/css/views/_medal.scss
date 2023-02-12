@@ -99,10 +99,22 @@
         text-align: center;
         color: $main-color;
 
-        .rate, .charge-info {
-          @include centralize;
+        tr {
+          td {
+            .upload-image, .upload-video {
+              width: 100%;
+              display: flex;
+              justify-content: flex-end;
+              margin: 0;
+      
+              .upload {
+                display: none;
+              }
+            }
+          }
         }
       }
+
     }
 
     .medal-list-mobile {

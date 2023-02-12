@@ -4,6 +4,16 @@ const RoleType = {
   admin: 3,
 };
 
+const MediaType = {
+  image: 1,
+  video: 2,
+};
+
+const MediaMap = {
+  1: '圖片',
+  2: '影片',
+};
+
 const MedalType = {
   1: '課程等級',
   2: 'PB 蒐集',
@@ -16,4 +26,4 @@ const PrizeType = {
   2: '裝備',
 };
 
-export { RoleType, MedalType, PrizeType };
+export { RoleType, MediaType, MediaMap, MedalType, PrizeType };
