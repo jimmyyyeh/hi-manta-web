@@ -32,4 +32,12 @@ const PrizeType = {
   2: '裝備',
 };
 
-export { RoleType, MediaType, RoleMap, MediaMap, MedalType, PrizeType };
+const Pattern = {
+  EMAIL: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+};
+
+const ErrorCode = {
+  UNVERIFIED: 1004,
+};
+
+export { Pattern, ErrorCode, RoleType, MediaType, RoleMap, MediaMap, MedalType, PrizeType };

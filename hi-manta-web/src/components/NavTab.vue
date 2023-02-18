@@ -19,6 +19,7 @@ export default {
       tabName: this.$route.name.toLowerCase(),
       pathMap: {
         home: '/',
+        auth: '/auth',
         medal: '/medal',
         prize: '/prize',
         medalLog: '/medal-log',
