@@ -18,6 +18,15 @@
                 <option v-for="(type, index) in types" :key="index" :value="index">{{ type }}</option>
               </select>
           </div>
+          <div class="is-only-available-selector selector" v-show="isStudent">
+            <label class="width-selector-label">只顯示可兌換項目:</label>
+            <div class="radio-group">
+              <input type="radio" name="is-only-available" value="1" v-model="filter.is_only_available"/>
+              <label class="radio-label">是</label>
+              <input type="radio" name="is-only-available" value="0" v-model="filter.is_only_available"/>
+              <label class="radio-label">否</label>
+            </div>
+          </div>
         </div>
         <div class="button-group" v-show="!isStudent">
           <button class="default-button" @click="showPrizeModal(null, False)">新增</button>

@@ -1,10 +1,12 @@
 import { RoleType } from '@/assets/constant/constant';
 import Cookies from 'js-cookie';
+import CryptoJS from 'crypto-js';
 
 export default {
   data() {
     return {
       user: null,
+      cachedPassword: null,
       config: null,
       signInRequiredPage: ['medal', 'prize', 'medal-log'],
     };
@@ -31,6 +33,18 @@ export default {
           Authorization: `Bearer ${this.user.access_token}`,
         },
       };
+    },
+    decrypt(inputStr) {
+      const bytes = CryptoJS.AES.decrypt(inputStr, process.env.SALT);
+      const originStr = bytes.toString(CryptoJS.enc.Utf8);
+      return originStr;
+    },
+    encrypt(inputStr) {
+      const encodeStr = CryptoJS.AES.encrypt(
+        inputStr,
+        process.env.SALT,
+      ).toString();
+      return encodeStr;
     },
     setAuth() {
       this.setCookie();
@@ -62,7 +76,9 @@ export default {
     async refresh() {
       const res = await this.requestSignIn();
       if (res && res.status === 200) {
+        this.cachedPassword = this.user.password;
         this.user = res.data.data;
+        this.user.password = this.cachedPassword;
         this.setAuth();
       } else {
         const refs = this.$refs;
@@ -78,8 +94,7 @@ export default {
 
       if (signInCookie) {
         this.user = JSON.parse(signInCookie);
-        this.user.password = '1234567890';
-        // TODO 先寫死
+        this.user.password = this.decrypt(this.user.password);
         await this.refresh();
       } else {
         if (!this.isSignInRequired) {

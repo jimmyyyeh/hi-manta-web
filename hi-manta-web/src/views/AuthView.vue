@@ -247,6 +247,7 @@ export default {
             const user = res.data.data;
             if (user.is_verified) {
               this.user = res.data.data;
+              this.user.password = this.encrypt(this.signInUser.password);
               this.setAuth();
               const refs = this.$refs;
               this.alert.title = null;

@@ -107,14 +107,23 @@ $phone-size: 414px;
           display: flex;
           flex-direction: row;
 
-          .selector-label {
-            width: 4em;
-          }
-
           select {
             background-color: $white-color;
             color: $main-color;
             border-radius: 5px;
+          }
+        }
+
+        .radio-group {
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+
+          .radio-label {
+            font-size: 0.95em;
+            color: $main-color;
+            font-weight: bold;
+            margin: 0 5px 0 5px;
           }
         }
       }
@@ -349,11 +358,16 @@ $phone-size: 414px;
 
 .selector-label, .input-label {
   font-weight: bold;
-  width: 5em;
+  width: 4em;
 }
 
-.selector-label {
-  margin: 0 0 0 3px;
+.width-selector-label {
+  font-weight: bold;
+  width: 9em;
+}
+
+.selector-label, .width-selector-label {
+  margin: 0 0 0 5px;
 }
 
 .input-label {
