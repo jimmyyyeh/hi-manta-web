@@ -72,19 +72,19 @@ export default {
       // const signInCookie = Cookies.get('hi-manta-sign-in');
       // TODO 先寫死
 
-      // // 切換身份為教練
-      // const signInCookie = JSON.stringify({
-      //   username: 'himanta',
-      //   password: '1234567890',
-      //   role: 2,
-      // });
-
-      // 切換身份為學生
+      // 切換身份為教練
       const signInCookie = JSON.stringify({
-        username: 'jimmyyeh',
+        username: 'himanta',
         password: '1234567890',
-        role: 1,
+        role: 2,
       });
+
+      // // 切換身份為學生
+      // const signInCookie = JSON.stringify({
+      //   username: 'jimmyyeh',
+      //   password: '1234567890',
+      //   role: 1,
+      // });
 
       if (signInCookie) {
         this.user = JSON.parse(signInCookie);

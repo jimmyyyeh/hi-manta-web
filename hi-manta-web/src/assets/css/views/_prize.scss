@@ -15,55 +15,8 @@
           }
         }
 
-        .my-prize-selector {
-          .radio-group {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-
-            .radio-label {
-              font-size: 0.95em;
-              color: $main-color;
-              font-weight: bold;
-              margin: 0 5px 0 0;
-            }
-          }
-        }
-
-        .selector {
-          margin: 10px;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-
-          .selector-label {
-            width: 5em;
-          }
-
-          select {
-            background-color: $white-color;
-            color: $main-color;
-            border-radius: 5px;
-          }
-        }
       }
 
-      .button-group {
-        display: flex;
-        width: 100%;
-
-        @media (max-width: $squeeze-size) {
-          @include centralize;
-        }
-
-        @media (max-width: $pad-size) {
-          display: none !important;
-        }
-
-        .default-button {
-          margin: 0 10px 0 0;
-        }
-      }
     }
 
     .prize-list {

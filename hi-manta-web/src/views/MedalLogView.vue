@@ -11,6 +11,23 @@
     </div>
     <div class="container" v-show="!isLoading">
       <div class="filter-bar">
+        <div class="selector-group">
+          <div class="is-medal-verified-selector selector">
+            <label class="selector-label">已認證:</label>
+            <div class="radio-group">
+              <input type="radio" name="is-medal-verified" value="1" v-model="filter.is_issued"/>
+              <label class="radio-label">是</label>
+              <input type="radio" name="is-medal-verified" value="0" v-model="filter.is_issued"/>
+              <label class="radio-label">否</label>
+            </div>
+          </div>
+          <div class="student-selector" v-show="!isStudent">
+            <div class="input">
+              <label class="selector-label" for="title">學員名稱:</label>
+              <input type="text" id="title" v-model="filter.student">
+            </div>
+          </div>
+          </div>
       </div>
       <div class="medal-list">
         <table class="table">
@@ -74,6 +91,7 @@ export default {
         total: 1,
       },
       isLoading: false,
+      filter: {},
       medalLogs: [],
       previewMedalLog: {
         medal_log_id: null,

@@ -3,6 +3,23 @@
 .wrap {
   .container {
     .filter-bar {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: flex-start;
+      width: 70vw;
+      padding: 0 10px 0 10px;
+      margin: 20px;
+      height: 10%;
+
+      @media (max-width: $squeeze-size) {
+        flex-direction: column-reverse;
+        @media (max-width: $squeeze-size) {
+          label, select {
+            font-size: small !important;
+          }
+        }
+      }
 
       .selector-group {
         display: flex;
@@ -15,55 +32,8 @@
           }
         }
 
-        .my-medal-selector {
-          .radio-group {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-
-            .radio-label {
-              font-size: 0.95em;
-              color: $main-color;
-              font-weight: bold;
-              margin: 0 5px 0 0;
-            }
-          }
-        }
-
-        .selector {
-          margin: 10px;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-
-          .selector-label {
-            width: 5em;
-          }
-
-          select {
-            background-color: $white-color;
-            color: $main-color;
-            border-radius: 5px;
-          }
-        }
       }
 
-      .button-group {
-        display: flex;
-        width: 100%;
-
-        @media (max-width: $squeeze-size) {
-          @include centralize;
-        }
-
-        @media (max-width: $pad-size) {
-          display: none !important;
-        }
-
-        .default-button {
-          margin: 0 10px 0 0;
-        }
-      }
     }
 
     .medal-list {

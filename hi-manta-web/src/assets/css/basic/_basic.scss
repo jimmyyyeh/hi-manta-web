@@ -100,6 +100,43 @@ $phone-size: 414px;
           }
         }
       }
+
+      .selector-group {
+        .selector {
+          margin: 10px;
+          display: flex;
+          flex-direction: row;
+
+          .selector-label {
+            width: 4em;
+          }
+
+          select {
+            background-color: $white-color;
+            color: $main-color;
+            border-radius: 5px;
+          }
+        }
+      }
+
+      .button-group {
+        display: flex;
+        width: 100%;
+        flex-direction: row-reverse;
+
+        @media (max-width: $squeeze-size) {
+          @include centralize;
+        }
+
+        @media (max-width: $pad-size) {
+          display: none !important;
+        }
+
+        .default-button {
+          margin: 0 10px 0 0;
+        }
+      }
+
     }
   }
 }
@@ -212,7 +249,7 @@ $phone-size: 414px;
 
   .logo {
     @include centralize;
-    margin: 0 0 0 10px;
+    margin: 30px;
 
     input {
       width: 30px;
