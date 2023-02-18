@@ -14,6 +14,14 @@
         <div class="button-group">
           <button class="default-button" @click="showPrizeModal(null, False)">新增</button>
         </div>
+        <div class="selector-group">
+          <div class="type-selector selector">
+              <label class="selector-label" for="types">類別</label>
+              <select name="types" id="types" v-model="filter.type">
+                <option v-for="(type, index) in types" :key="index" :value="index + 1">{{ type }}</option>
+              </select>
+          </div>
+        </div>
       </div>
       <div class="prize-list">
         <table class="table">
@@ -97,6 +105,7 @@ export default {
       filter: {},
       selectedPrize: null,
       isEdit: false,
+      types: ['潛旅', '裝備'],
     };
   },
   watch: {

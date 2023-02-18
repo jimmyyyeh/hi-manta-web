@@ -3,28 +3,13 @@
 .wrap {
   .container {
     .filter-bar {
-      display: flex;
-      align-items: center;
-      flex-direction: row;
-      width: 70vw;
-      padding: 0 10px 0 10px;
-      height: 10%;
-
-      @media (max-width: $squeeze-size) {
-        flex-direction: column-reverse;
-        @media (max-width: $squeeze-size) {
-          label, select {
-            font-size: small !important;
-          }
-        }
-      }
 
       .selector-group {
         display: flex;
         align-items: center;
         justify-content: space-around;
 
-        .charger-selector, .model-selector, .spec-selector {
+        .type-selector {
           @media (max-width: $pad-size) {
             display: none !important;
           }

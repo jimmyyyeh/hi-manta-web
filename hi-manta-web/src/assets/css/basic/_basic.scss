@@ -81,6 +81,26 @@ $phone-size: 414px;
     justify-content: flex-start;
     height: 100%;
     position: relative;
+
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: flex-start;
+      width: 70vw;
+      padding: 0 10px 0 10px;
+      margin: 20px;
+      height: 10%;
+
+      @media (max-width: $squeeze-size) {
+        flex-direction: column-reverse;
+        @media (max-width: $squeeze-size) {
+          label, select {
+            font-size: small !important;
+          }
+        }
+      }
+    }
   }
 }
 
