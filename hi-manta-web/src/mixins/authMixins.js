@@ -1,3 +1,4 @@
+import { RoleType } from '@/assets/constant/constant';
 import Cookies from 'js-cookie';
 
 export default {
@@ -44,8 +45,12 @@ export default {
       const payload = {
         username: this.user.username,
         password: this.user.password,
-        role: this.user.role,
       };
+      if (this.user.role === RoleType.admin) {
+        payload.role = RoleType.couch;
+      } else {
+        payload.role = this.user.role;
+      }
       try {
         const res = await this.$http.post(url, payload);
         return res;

@@ -19,7 +19,7 @@
               </select>
           </div>
         </div>
-        <div class="button-group">
+        <div class="button-group" v-show="!isStudent">
           <button class="default-button" @click="showMedalModal(null, false)">新增</button>
         </div>
       </div>

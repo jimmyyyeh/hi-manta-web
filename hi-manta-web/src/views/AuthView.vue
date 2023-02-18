@@ -165,7 +165,7 @@ export default {
         email: '',
         birthday: formatDate(new Date()),
         sex: 1,
-        level: 1,
+        level: 0,
       },
       signUpValidateMap: {
         username: false,
@@ -194,7 +194,7 @@ export default {
         email: '請輸入電子郵件',
       },
       types: ['請選擇', 'A1', 'A2', 'A3', 'A4'],
-      roles: ['請選擇', '學員', '教練', '小光潔西'],
+      roles: ['請選擇', '學員', '教練'],
     };
   },
   watch: {
