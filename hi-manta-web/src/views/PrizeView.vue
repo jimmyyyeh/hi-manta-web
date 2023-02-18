@@ -18,7 +18,7 @@
           <div class="type-selector selector">
               <label class="selector-label" for="types">類別</label>
               <select name="types" id="types" v-model="filter.type">
-                <option v-for="(type, index) in types" :key="index" :value="index + 1">{{ type }}</option>
+                <option v-for="(type, index) in types" :key="index" :value="index">{{ type }}</option>
               </select>
           </div>
         </div>
@@ -102,10 +102,12 @@ export default {
       },
       isLoading: false,
       prizes: [],
-      filter: {},
+      filter: {
+        type: 0,
+      },
       selectedPrize: null,
       isEdit: false,
-      types: ['潛旅', '裝備'],
+      types: ['請選擇', '潛旅', '裝備'],
     };
   },
   watch: {
