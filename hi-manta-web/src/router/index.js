@@ -26,6 +26,11 @@ const routes = [
     name: 'medal-log',
     component: () => import('../views/MedalLogView.vue'),
   },
+  {
+    path: '/redeem-prize/:token',
+    name: 'redeem',
+    component: () => import('../views/RedeemView.vue'),
+  },
 ];
 
 const router = createRouter({

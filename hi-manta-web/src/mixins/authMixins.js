@@ -8,7 +8,7 @@ export default {
       user: null,
       cachedPassword: null,
       config: null,
-      signInRequiredPage: ['medal', 'prize', 'medal-log'],
+      signInRequiredPage: ['medal', 'prize', 'medal-log', 'redeem'],
     };
   },
   computed: {
