@@ -1,0 +1,65 @@
+@import "./src/assets/css/basic/basic";
+
+#rank-modal {
+    .modal-dialog {
+        @include centralize;
+
+        .modal-content {
+            border: $main-color 1px solid;
+            border-radius: 5px;
+            box-shadow: 3px 3px 12px $main-color;
+
+            .modal-header,
+            .modal-body,
+            .modal-footer {
+                border: none;
+                @include centralize;
+
+                .button-group {
+                    .default-button {
+                        margin: 0 10px 0 10px;
+                    }
+                }
+            }
+
+            .modal-body {
+                .rank-list {
+                    border: $main-color 1px solid;
+                    border-radius: 10px;
+                    box-shadow: 3px 3px 12px $main-color;
+                    margin: 30px 0 0 0;
+
+                    @media (max-width: $pad-size) {
+                        display: none;
+                    }
+
+                    .table {
+                        width: 40vw;
+                        @media (max-width: $squeeze-size) {
+                            font-size: smaller;
+                        }
+
+                        text-align: center;
+                        color: $main-color;
+
+                        tr {
+                            td {
+                                .form-switch {
+                                    @include centralize;
+
+                                    .form-check-input {
+                                        &:checked {
+                                            background-color: $main-color;
+                                        }
+
+                                        border-color: $main-color;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

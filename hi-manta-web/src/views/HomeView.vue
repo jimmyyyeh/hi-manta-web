@@ -41,14 +41,19 @@
   <AlertModal ref="confirmModal" :title="alert.title" :message="alert.message"
               :isCancelShow="alert.isCancelShow"
               :confirmFunction="alert.confirmFunction"></AlertModal>
+  <rankModal ref="rankModal"></rankModal>
 </template>
 
 <script>
 import authMixins from '@/mixins/authMixins';
 import pageMixins from '@/mixins/pageMixins';
+import rankModal from '@/components/RankModal.vue';
 
 export default {
   mixins: [authMixins, pageMixins],
+  components: {
+    rankModal,
+  },
   methods: {
     openSocialMedia(platform) {
       const socialMedia = {
@@ -60,6 +65,12 @@ export default {
     sendEmail() {
       window.location.href = 'mailto:chienfeng0719@hotmail.com';
     },
+  },
+  mounted() {
+    if (this.user) {
+      const refs = this.$refs;
+      refs.rankModal.showModal();
+    }
   },
 };
 </script>
