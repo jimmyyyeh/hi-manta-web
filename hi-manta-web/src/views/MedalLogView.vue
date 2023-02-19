@@ -23,7 +23,7 @@
           </div>
           <div class="student-selector" v-show="!isStudent">
             <div class="input">
-              <label class="selector-label" for="title">學員名稱:</label>
+              <label class="selector-label" for="title">學員:</label>
               <input type="text" id="title" v-model="filter.student">
             </div>
           </div>
