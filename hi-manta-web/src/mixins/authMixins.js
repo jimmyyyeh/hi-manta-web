@@ -36,7 +36,7 @@ export default {
     },
     decrypt(inputStr) {
       const bytes = CryptoJS.AES.decrypt(inputStr, process.env.VUE_APP_SALT);
-      const originStr = bytes.toString(CryptoJS.enc.Utf8);
+      const originStr = bytes.toString();
       return originStr;
     },
     encrypt(inputStr) {
