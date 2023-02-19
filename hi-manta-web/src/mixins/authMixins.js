@@ -35,14 +35,14 @@ export default {
       };
     },
     decrypt(inputStr) {
-      const bytes = CryptoJS.AES.decrypt(inputStr, process.env.SALT);
+      const bytes = CryptoJS.AES.decrypt(inputStr, process.env.VUE_APP_SALT);
       const originStr = bytes.toString(CryptoJS.enc.Utf8);
       return originStr;
     },
     encrypt(inputStr) {
       const encodeStr = CryptoJS.AES.encrypt(
         inputStr,
-        process.env.SALT,
+        process.env.VUE_APP_SALT,
       ).toString();
       return encodeStr;
     },
