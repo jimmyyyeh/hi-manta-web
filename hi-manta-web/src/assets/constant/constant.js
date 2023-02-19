@@ -38,6 +38,7 @@ const Pattern = {
 
 const ErrorCode = {
   UNVERIFIED: 1004,
+  POINT_UNSATISFIED: 2023,
 };
 
 export { Pattern, ErrorCode, RoleType, MediaType, RoleMap, MediaMap, MedalType, PrizeType };

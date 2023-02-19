@@ -4,7 +4,7 @@
       <input type="image" class="nav-item" src="https://i.imgur.com/CxcL1Vf.jpge" alt="logo" @click="redirectPage('home')">
     </div>
     <ul class="nav">
-        <li class="nav-item" :class="tabName === 'medal-log' ? 'active' : ''" @click="redirectPage('medalLog')">上傳紀錄</li>
+        <li class="nav-item" :class="tabName === 'medal-log' ? 'active' : ''" @click="redirectPage('medalLog')">勳章紀錄</li>
         <li class="nav-item" :class="tabName === 'medal' ? 'active' : ''" @click="redirectPage('medal')">勳章列表</li>
         <li class="nav-item" :class="tabName === 'prize' ? 'active' : ''" @click="redirectPage('prize')">獎勵列表</li>
         <li class="nav-item" :class="tabName === 'auth' ? 'active' : ''" @click="redirectPage('auth')">{{ $parent.isSignIn ? '登出': '登入' }}</li>

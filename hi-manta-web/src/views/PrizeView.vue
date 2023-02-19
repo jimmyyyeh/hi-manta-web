@@ -42,8 +42,8 @@
             <th scope="col">類別</th>
             <th scope="col">所需積分</th>
             <th scope="col" v-show="!this.isStudent">是否開放</th>
-            <th scope="col"></th>
             <th scope="col" v-show="!this.isStudent"></th>
+            <th scope="col" v-show="this.isStudent">兌換</th>
           </tr>
           </thead>
           <tbody>
@@ -70,6 +70,12 @@
                   src="https://i.imgur.com/0VX3Q3b.png" alt="delete"/>
               </button>
             </td>
+            <td v-show="this.isStudent">
+              <button class="image-button" @click="generateQRCode(prize)" >
+                <img
+                  src="https://i.imgur.com/jIQSQtb.png" alt="redeem"/>
+              </button>
+            </td>
           </tr>
           </tbody>
         </table>
@@ -79,6 +85,7 @@
     </div>
   </div>
   <PrizeModal ref="prizeModal" :selectedPrize="selectedPrize" :isEdit="isEdit" :config="config"></PrizeModal>
+  <QRCodeModal ref="QRCodeModal" :image="image"></QRCodeModal>
   <AlertModal ref="alertModal" :title="alert.title" :message="alert.message"
               :isCancelShow="alert.isCancelShow"
               :confirmFunction="alert.confirmFunction"></AlertModal>
@@ -88,17 +95,18 @@
 </template>
 
 <script>
-import { PrizeType, RoleType } from '@/assets/constant/constant';
+import { ErrorCode, PrizeType, RoleType } from '@/assets/constant/constant';
 import authMixins from '@/mixins/authMixins';
 import pageMixins from '@/mixins/pageMixins';
 import PrizeModal from '@/components/PrizeModal.vue';
+import QRCodeModal from '@/components/QRCodeModal.vue';
 import PaginateComponent from '@/components/PaginateComponent.vue';
 import { formatUrl, initToolTip } from '@/utils/tools';
 
 export default {
   mixins: [authMixins, pageMixins],
   components: {
-    PaginateComponent, PrizeModal,
+    PaginateComponent, PrizeModal, QRCodeModal,
   },
   data() {
     return {
@@ -117,6 +125,7 @@ export default {
       selectedPrize: null,
       isEdit: false,
       types: ['請選擇', '潛旅', '裝備'],
+      image: null,
     };
   },
   watch: {
@@ -182,7 +191,6 @@ export default {
     },
     switchPrizeStatus(prize) {
       const url = `${process.env.VUE_APP_API}/prize/${prize.id}`;
-      console.log(prize.is_enable);
       const payload = {
         is_enable: !prize.is_enable,
       };
@@ -207,6 +215,32 @@ export default {
       this.alert.isCancelShow = true;
       this.alert.confirmFunction = this.deletePrize;
       refs.confirmModal.showModal();
+    },
+    generateQRCode(prize) {
+      const url = `${process.env.VUE_APP_API}/prize/qrcode/${prize.id}`;
+      this.$http.get(url, this.config)
+        .then((res) => {
+          if (res.status === 200) {
+            const refs = this.$refs;
+            this.image = res.data.data.image;
+            refs.QRCodeModal.showModal();
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+          if (response) {
+            const errorCode = response.data.error_code;
+            const refs = this.$refs;
+            this.alert.title = '不可兌換';
+            if (errorCode === ErrorCode.POINT_UNSATISFIED) {
+              this.alert.message = '積分不足 還不快認真團練';
+            } else {
+              this.alert.message = '網站有 bug 啦';
+            }
+            this.alert.confirmFunction = (() => {});
+            refs.alertModal.showModal();
+          }
+        });
     },
     initData() {
       this.getPrizes();
