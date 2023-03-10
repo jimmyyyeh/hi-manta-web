@@ -50,20 +50,6 @@
         text-align: center;
         color: $main-color;
 
-        tr {
-          td {
-            .upload-image, .upload-video {
-              width: 100%;
-              display: flex;
-              justify-content: flex-end;
-              margin: 0;
-      
-              .upload {
-                display: none;
-              }
-            }
-          }
-        }
       }
 
     }
