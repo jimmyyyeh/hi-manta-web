@@ -26,11 +26,11 @@
         align-items: center;
         justify-content: space-around;
 
-        .type-selector {
-          @media (max-width: $pad-size) {
-            display: none !important;
-          }
-        }
+        // .type-selector {
+        //   @media (max-width: $pad-size) {
+        //     display: none !important;
+        //   }
+        // }
 
       }
 
@@ -95,11 +95,14 @@
           margin: 5px;
           position: relative;
 
-          .rate {
+          .upload-image-video {
             @include centralize;
             position: absolute;
             right: 0;
             bottom: 0;
+            .upload {
+              display: none;
+            }
 
             label {
               font-size: medium;

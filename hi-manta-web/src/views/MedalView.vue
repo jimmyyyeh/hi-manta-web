@@ -97,6 +97,49 @@
           </tbody>
         </table>
       </div>
+      <div class="medal-list-mobile">
+        <div class="medal" v-for="(medal, index) in medals" :key="index">
+          <h6 class="header">{{ medal.title }}</h6>
+          <div class="medal-content">
+            <ul class="content">
+              <li> <strong>說明: </strong>{{ medal.description }}</li>
+              <li> <strong>備註: </strong>{{ medal.remark }}</li>
+              <li> <strong>分類: </strong>{{ convertMedalTypeStr(medal.type) }}</li>
+              <li> <strong>點數: </strong>{{ medal.point }}</li>
+            </ul>
+            <div class="upload-image-video">
+              <input
+                class="upload"
+                id="upload-image-input"
+                name="upload"
+                type="file"
+                accept="image/*"
+                @change="uploadMedia"
+              />
+              <button
+                class="image-button"
+                @click="clickUpload(medal, 'image')"
+              >
+                <img src="https://i.imgur.com/BfHJAJK.png" alt="image" />
+              </button>
+              <input
+                class="upload"
+                id="upload-video-input"
+                name="upload"
+                type="file"
+                accept="video/*"
+                @change="uploadMedia"
+              />
+              <button
+                class="image-button"
+                @click="clickUpload(medal, 'video')"
+              >
+                <img src="https://i.imgur.com/OMte0Gt.png" alt="video" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <PaginateComponent :refresh-method="getMedals" :pager="pager"
                          v-show="isSignIn"></PaginateComponent>
     </div>

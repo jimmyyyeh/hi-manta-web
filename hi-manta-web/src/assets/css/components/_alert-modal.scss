@@ -6,6 +6,7 @@
     width: 100vw;
     height: 50vh;
     .modal-content {
+      @include centralize;
       width: 20vw;
       border: $main-color 1px solid;
       border-radius: 5px;

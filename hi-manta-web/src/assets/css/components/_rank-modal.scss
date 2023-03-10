@@ -5,6 +5,7 @@
         @include centralize;
 
         .modal-content {
+            @include centralize;
             border: $main-color 1px solid;
             border-radius: 5px;
             box-shadow: 3px 3px 12px $main-color;
@@ -29,12 +30,8 @@
                     box-shadow: 3px 3px 12px $main-color;
                     margin: 30px 0 0 0;
 
-                    @media (max-width: $pad-size) {
-                        display: none;
-                    }
-
                     .table {
-                        width: 40vw;
+                        width: 50vw;
                         @media (max-width: $squeeze-size) {
                             font-size: smaller;
                         }

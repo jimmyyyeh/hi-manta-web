@@ -29,7 +29,7 @@
           </div>
           </div>
       </div>
-      <div class="medal-list">
+      <div class="medal-log-list">
         <table class="table">
           <thead>
           <tr>

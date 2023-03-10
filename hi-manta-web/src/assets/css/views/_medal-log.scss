@@ -1,0 +1,72 @@
+@import "./src/assets/css/basic/basic";
+
+.wrap {
+  .container {
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: flex-start;
+      width: 70vw;
+      padding: 0 10px 0 10px;
+      margin: 20px;
+      height: 10%;
+
+      @media (max-width: $squeeze-size) {
+        flex-direction: column-reverse;
+        @media (max-width: $squeeze-size) {
+          label, select {
+            font-size: small !important;
+          }
+        }
+      }
+
+      .selector-group {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        // .type-selector {
+        //   @media (max-width: $pad-size) {
+        //     display: none !important;
+        //   }
+        // }
+
+      }
+
+    }
+
+    .medal-log-list {
+      width: 90vw;
+      border: $main-color 1px solid;
+      border-radius: 10px;
+      box-shadow: 3px 3px 12px $main-color;
+      margin: 30px 0 0 0 ;
+
+      .table {
+        @media (max-width: $squeeze-size) {
+          font-size: smaller;
+        }
+        text-align: center;
+        color: $main-color;
+
+        tr {
+          td {
+            .upload-image, .upload-video {
+              width: 100%;
+              display: flex;
+              justify-content: flex-end;
+              margin: 0;
+      
+              .upload {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+
+    }
+  }
+}
+

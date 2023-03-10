@@ -80,6 +80,25 @@
           </tbody>
         </table>
       </div>
+      <div class="prize-list-mobile">
+        <div class="prize" v-for="(prize, index) in prizes" :key="index">
+          <h6 class="header">{{ prize.title }}</h6>
+          <div class="prize-content">
+            <ul class="content">
+              <li> <strong>說明: </strong>{{ prize.description }}</li>
+              <li> <strong>備註: </strong>{{ prize.remark }}</li>
+              <li> <strong>分類: </strong>{{ convertPrizeTypeStr(prize.type) }}</li>
+              <li> <strong>點數: </strong>{{ prize.point }}</li>
+            </ul>
+            <div class="generate-qrcdoe">
+              <button class="image-button" @click="generateQRCode(prize)" >
+                <img
+                  src="https://i.imgur.com/jIQSQtb.png" alt="redeem"/>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <PaginateComponent :refresh-method="getPrizes" :pager="pager"
                          v-show="isSignIn"></PaginateComponent>
     </div>

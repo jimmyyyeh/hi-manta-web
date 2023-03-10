@@ -1,13 +1,31 @@
 @import "./src/assets/css/basic/basic";
 
-.qrcode {
+#qrcode-modal {
+  .modal-dialog{
     @include centralize;
-    width: 100%;
-    height: 100%;
-  
-    img {
-      @media (max-width: $phone-size) {
-        width: 100%;
+    width: 100vw;
+    height: 50vh;
+    .modal-content {
+      @include centralize;
+      width: 20vw;
+      border: $main-color 1px solid;
+      border-radius: 5px;
+      box-shadow: 3px 3px 12px $main-color;
+      .modal-header, .modal-body, .modal-footer {
+        border: none;
+        @include centralize;
+        .qrcode {
+          @include centralize;
+          width: 100%;
+          height: 100%;
+        
+          img {
+            @media (max-width: $phone-size) {
+              width: 100%;
+            }
+          }
+        }      
       }
     }
   }
+}
