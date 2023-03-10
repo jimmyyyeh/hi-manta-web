@@ -39,6 +39,7 @@ const Pattern = {
 const ErrorCode = {
   UNVERIFIED: 1004,
   POINT_UNSATISFIED: 2023,
+  DATA_ALREADY_EXIST: 2024,
 };
 
 export { Pattern, ErrorCode, RoleType, MediaType, RoleMap, MediaMap, MedalType, PrizeType };

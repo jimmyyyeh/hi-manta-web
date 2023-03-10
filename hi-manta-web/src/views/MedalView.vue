@@ -154,7 +154,7 @@
 </template>
 
 <script>
-import { MedalType, MediaMap, MediaType, RoleType } from '@/assets/constant/constant';
+import { ErrorCode, MedalType, MediaMap, MediaType, RoleType } from '@/assets/constant/constant';
 import authMixins from '@/mixins/authMixins';
 import pageMixins from '@/mixins/pageMixins';
 import MedalModal from '@/components/MedalModal.vue';
@@ -309,9 +309,16 @@ export default {
             })
             .catch((error) => {
               const response = error.response;
-              if (response) {
+              const errorCode = response.data.error_code;
+              if (errorCode === ErrorCode.DATA_ALREADY_EXIST) {
                 const refs = this.$refs;
-                this.alert.title = '上傳成功';
+                this.alert.title = '上傳失敗';
+                this.alert.message = '紀錄已存在, 請勿重複上傳';
+                this.alert.isCancelShow = false;
+                refs.alertModal.showModal();
+              } else {
+                const refs = this.$refs;
+                this.alert.title = '上傳失敗';
                 this.alert.message = `${this.mediaMedal.typeStr} 上傳失敗, 請檢查檔案`;
                 this.alert.isCancelShow = false;
                 refs.alertModal.showModal();
