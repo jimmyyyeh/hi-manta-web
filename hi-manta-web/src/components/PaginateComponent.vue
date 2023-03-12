@@ -1,5 +1,5 @@
 <template>
-  <nav class="nav-pagination">
+  <nav class="nav-pagination" id="nav-pagination">
     <ul class="pagination">
       <!-- 上一頁 -->
       <li class="page-item" v-if="(pager.page-1)>0">

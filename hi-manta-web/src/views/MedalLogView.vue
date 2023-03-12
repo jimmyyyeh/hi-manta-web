@@ -116,9 +116,16 @@ export default {
       this.getMedalLogs();
     },
     getMedalLogs(page, isAppend) {
+      const pagination = document.getElementById('nav-pagination');
+      const display = window.getComputedStyle(pagination).display;
+
       let url = `${process.env.VUE_APP_API}/medal/log/`;
       const queryFilter = { ...this.filter };
       queryFilter.page = page;
+      if (display === 'none') {
+        queryFilter.per_page = 100000;
+      }
+
       url = formatUrl(url, queryFilter);
       this.$http.get(url, this.config)
         .then((res) => {
