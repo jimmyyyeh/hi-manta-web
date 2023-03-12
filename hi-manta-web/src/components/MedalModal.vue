@@ -22,7 +22,7 @@
             </div>
             <div class="point column">
               <div class="input">
-                <label class="selector-label" for="description">可得積分:</label>
+                <label class="selector-label" for="description">積分:</label>
                 <input type="number" id="description" v-model="medal.point" :readonly="isEdit">
               </div>
             </div>
@@ -107,6 +107,15 @@ export default {
       handler() {
         this.validateMap.title = this.medal.title !== null;
         this.validateMap.description = this.medal.description !== null;
+        if (this.medal.title) {
+          if (this.medal.type === '1') {
+            const pattern = /A[\d]+/;
+            this.validateMap.title = Boolean(this.medal.title.match(pattern));
+          } else if (this.medal.type === '2') {
+            const pattern = /深度[\d]+m|靜態閉氣[\d]+分鐘|動態平潛[\d]+m|無蹼下潛深度[\d]+m/;
+            this.validateMap.title = Boolean(this.medal.title.match(pattern));
+          }
+        }
       },
       deep: true,
     },
