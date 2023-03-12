@@ -55,7 +55,7 @@
               <div class="upload-image">
                   <input
                     class="upload"
-                    id="upload-image-input"
+                    :id="`upload-image-input-${index}`"
                     name="upload"
                     type="file"
                     accept="image/*"
@@ -63,7 +63,7 @@
                   />
                   <button
                     class="image-button"
-                    @click="clickUpload(medal, 'image')"
+                    @click="clickUpload(medal, 'image', index)"
                   >
                     <img src="https://i.imgur.com/NUuvWyW.png" alt="image" />
                   </button>
@@ -79,7 +79,7 @@
               <div class="upload-video">
                   <input
                     class="upload"
-                    id="upload-video-input"
+                    :id="`upload-video-input-${index}`"
                     name="upload"
                     type="file"
                     accept="video/*"
@@ -87,7 +87,7 @@
                   />
                   <button
                     class="image-button"
-                    @click="clickUpload(medal, 'video')"
+                    @click="clickUpload(medal, 'video', index)"
                   >
                     <img src="https://i.imgur.com/NUuvWyW.png" alt="video" />
                   </button>
@@ -110,7 +110,7 @@
             <div class="upload-image-video">
               <input
                 class="upload"
-                id="upload-image-input"
+                :id="`upload-image-input-${index}`"
                 name="upload"
                 type="file"
                 accept="image/*"
@@ -118,13 +118,13 @@
               />
               <button
                 class="image-button"
-                @click="clickUpload(medal, 'image')"
+                @click="clickUpload(medal, 'image', index)"
               >
                 <img src="https://i.imgur.com/BfHJAJK.png" alt="image" />
               </button>
               <input
                 class="upload"
-                id="upload-video-input"
+                :id="`upload-video-input-${index}`"
                 name="upload"
                 type="file"
                 accept="video/*"
@@ -132,7 +132,7 @@
               />
               <button
                 class="image-button"
-                @click="clickUpload(medal, 'video')"
+                @click="clickUpload(medal, 'video', index)"
               >
                 <img src="https://i.imgur.com/OMte0Gt.png" alt="video" />
               </button>
@@ -275,11 +275,11 @@ export default {
       const refs = this.$refs;
       refs.medalModal.showModal();
     },
-    clickUpload(medal, mediaTypeStr) {
+    clickUpload(medal, mediaTypeStr, elementIndex) {
       this.mediaMedal.id = medal.id;
       this.mediaMedal.typeStr = mediaTypeStr;
       this.mediaMedal.type = MediaType[mediaTypeStr];
-      document.getElementById(`upload-${mediaTypeStr}-input`).click();
+      document.getElementById(`upload-${mediaTypeStr}-input-${elementIndex}`).click();
     },
     uploadMedia(event) {
       const input = event.target;
